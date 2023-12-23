@@ -1,9 +1,8 @@
 extends Node2D
 
-signal enemy_hit(enemy: CharacterBody2D)
-
 const SPEED = 400;
 var direction = null;
+var damage = 1;
 
 func init(start_direction: Vector2):
 	look_at(start_direction)
@@ -18,8 +17,3 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	position += (direction * SPEED * delta)
-
-
-func _on_area_2d_body_entered(enemy: CharacterBody2D):
-	emit_signal("enemy_hit", enemy)
-	queue_free()

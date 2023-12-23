@@ -64,14 +64,14 @@ func _on_spawn_timer_timeout():
 		
 	var enemy_node = enemies["basic"].instantiate()
 	enemy_node.init(player, Vector2(rand_x, rand_y));
+	enemy_node.connect("died", Callable(self, "handle_enemy_died"))
 	call_deferred("add_child", enemy_node)
 
 func _on_player_fire(bullet_direction: Vector2):
 	var bullet_node = bullet_template.instantiate()
 	bullet_node.init(bullet_direction);
-	bullet_node.connect("enemy_hit", Callable(self, "handle_enemy_hit"))
 	call_deferred("add_child", bullet_node)
 	
-func handle_enemy_hit(enemy: CharacterBody2D):
+func handle_enemy_died(enemy: CharacterBody2D):
 	points += 1
 	enemy.queue_free()
