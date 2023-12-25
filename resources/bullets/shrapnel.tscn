@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://2ttx6e4qixlb"]
+
+[ext_resource type="Texture2D" uid="uid://bl6ihgcux1t0q" path="res://resources/sprites/left_broken_ship.png" id="1_am638"]
+[ext_resource type="Script" path="res://resources/bullets/shrapnel.gd" id="1_se467"]
+[ext_resource type="Texture2D" uid="uid://0buircjaakkx" path="res://resources/sprites/right_broken_ship.png" id="2_gvcat"]
+[ext_resource type="PackedScene" uid="uid://clu36v4og5o8x" path="res://components/self_destruct_timer.tscn" id="4_vsp14"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jo6yb"]
+size = Vector2(4, 16)
+
+[node name="Shrapnel" type="Area2D"]
+scale = Vector2(3, 3)
+script = ExtResource("1_se467")
+
+[node name="left" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("1_am638")
+
+[node name="right" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_gvcat")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jo6yb")
+
+[node name="SelfDestructTimer" parent="." node_paths=PackedStringArray("destroy_target") instance=ExtResource("4_vsp14")]
+destroy_target = NodePath("..")

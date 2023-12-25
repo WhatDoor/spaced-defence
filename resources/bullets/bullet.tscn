@@ -1,22 +1,23 @@
-[gd_scene load_steps=9 format=3 uid="uid://7ah81idj4l6x"]
+[gd_scene load_steps=10 format=3 uid="uid://7ah81idj4l6x"]
 
-[ext_resource type="Script" path="res://resources/player/bullet.gd" id="1_tk7fm"]
-[ext_resource type="Texture2D" uid="uid://cljfwmau0napf" path="res://resources/sprites/All_Fire_Bullet_Pixel_16x16.png" id="1_wuqy2"]
+[ext_resource type="Script" path="res://resources/bullets/bullet.gd" id="1_dtbhx"]
+[ext_resource type="Texture2D" uid="uid://cljfwmau0napf" path="res://resources/sprites/All_Fire_Bullet_Pixel_16x16.png" id="2_gh6ii"]
+[ext_resource type="PackedScene" uid="uid://clu36v4og5o8x" path="res://components/self_destruct_timer.tscn" id="3_innt1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rvfty"]
-atlas = ExtResource("1_wuqy2")
+atlas = ExtResource("2_gh6ii")
 region = Rect2(256, 128, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cqhby"]
-atlas = ExtResource("1_wuqy2")
+atlas = ExtResource("2_gh6ii")
 region = Rect2(272, 128, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n5v4y"]
-atlas = ExtResource("1_wuqy2")
+atlas = ExtResource("2_gh6ii")
 region = Rect2(288, 128, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0pyms"]
-atlas = ExtResource("1_wuqy2")
+atlas = ExtResource("2_gh6ii")
 region = Rect2(304, 128, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_84oec"]
@@ -44,8 +45,9 @@ radius = 3.0
 height = 14.0
 
 [node name="Bullet" type="Area2D"]
+scale = Vector2(3, 3)
 collision_mask = 0
-script = ExtResource("1_tk7fm")
+script = ExtResource("1_dtbhx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_84oec")
@@ -56,3 +58,6 @@ frame_progress = 0.182544
 position = Vector2(1, 1)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_glwac")
+
+[node name="SelfDestructTimer" parent="." node_paths=PackedStringArray("destroy_target") instance=ExtResource("3_innt1")]
+destroy_target = NodePath("..")

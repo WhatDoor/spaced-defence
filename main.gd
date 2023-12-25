@@ -1,13 +1,13 @@
 extends Node2D
 
 @onready var player = $Player;
-
-var points = 0;
+@onready var UI = $Control;
 
 var rng = RandomNumberGenerator.new()
-var spawn_radius = 330;
+var spawn_radius = 700;
 
-var bullet_template = preload("res://resources/player/bullet.tscn")
+var bullet_template = preload("res://resources/bullets/bullet.tscn")
+var shrapnel_template = preload("res://resources/bullets/shrapnel.tscn")
 
 var enemies = {
 	"basic": preload("res://resources/enemies/enemy.tscn"),
@@ -35,7 +35,7 @@ func _physics_process(delta):
 		var closest_enemy: CharacterBody2D
 		
 		for enemy in $DetectionArea.get_overlapping_bodies():
-			var enemy_distance = global_position.distance_to(enemy.global_position)
+			var enemy_distance = player.global_position.distance_to(enemy.global_position)
 			
 			if min_distance == -1:
 				closest_enemy = enemy
@@ -51,7 +51,9 @@ func _physics_process(delta):
 			#Record the selected enemy
 			if currently_selected_target != null && is_instance_valid(currently_selected_target):
 				currently_selected_target.deselected_as_target()
-			closest_enemy.selected_as_target()
+			
+			if closest_enemy != null:
+				closest_enemy.selected_as_target()
 			currently_selected_target = closest_enemy
 
 func _on_spawn_timer_timeout():
@@ -69,9 +71,24 @@ func _on_spawn_timer_timeout():
 
 func _on_player_fire(bullet_direction: Vector2):
 	var bullet_node = bullet_template.instantiate()
-	bullet_node.init(bullet_direction);
+	bullet_node.init(bullet_direction, player.global_position);
 	call_deferred("add_child", bullet_node)
 	
 func handle_enemy_died(enemy: CharacterBody2D):
-	points += 1
-	enemy.queue_free()
+	UI.add_points(1)
+	
+	#spawn shrapnel
+	var spawn_rng = rng.randf()
+	if (spawn_rng > 0.50):
+		var left_shrapnel_node = shrapnel_template.instantiate()
+		left_shrapnel_node.init(left_shrapnel_node.shrapnel_types.LEFT, enemy.global_position)
+		call_deferred("add_child", left_shrapnel_node)
+
+	spawn_rng = rng.randf()
+	if (spawn_rng > 0.50):
+		var right_shrapnel_node = shrapnel_template.instantiate()
+		right_shrapnel_node.init(right_shrapnel_node.shrapnel_types.RIGHT, enemy.global_position)
+		call_deferred("add_child",right_shrapnel_node)
+
+func _on_control_upgrade_purchased(upgrade_name):
+	player.upgrade_purchased(upgrade_name)

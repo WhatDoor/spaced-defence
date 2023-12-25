@@ -101,7 +101,7 @@ show_percentage = false
 layout_mode = 2
 theme_override_constants/margin_top = 15
 
-[node name="BlasterUpgradeLabel" type="Button" parent="Control/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer"]
+[node name="Label" type="Button" parent="Control/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 tooltip_text = "Increase attack speed"
 theme = ExtResource("5_8fu6h")
@@ -127,7 +127,7 @@ show_percentage = false
 layout_mode = 2
 theme_override_constants/margin_top = 15
 
-[node name="ThrustherUpgradeLabel" type="Button" parent="Control/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/MarginContainer"]
+[node name="Label" type="Button" parent="Control/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/MarginContainer"]
 layout_mode = 2
 tooltip_text = "Increase rotation speed"
 theme = ExtResource("5_8fu6h")
@@ -284,5 +284,3 @@ text = "Supernova
 
 [connection signal="fire" from="Player" to="." method="_on_player_fire"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
-[connection signal="upgrade_purchased" from="Control" to="." method="_on_control_upgrade_purchased"]
-[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/BlasterUpgradeLabel" to="Control" method="_on_blaster_upgrade_label_pressed"]

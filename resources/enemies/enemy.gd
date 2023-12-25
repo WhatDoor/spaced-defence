@@ -4,6 +4,8 @@ signal died(enemy: CharacterBody2D)
 
 @export var target: CharacterBody2D = null;
 
+@onready var deathAnim = $deathAnimation
+
 var SPEED: int = 2000;
 
 func init(player_target: CharacterBody2D, starting_pos: Vector2):
@@ -31,4 +33,13 @@ func deselected_as_target():
 
 func _on_health_component_hp_changed(old, new):
 	if (new <= 0):
+		SPEED = 0
+		$Sprite2D.visible = false
+		deathAnim.visible = true
+		$HurtboxComponent.set_deferred("monitoring", false) #prevent ship from dying over and over
+		$CollisionShape2D.set_deferred("disabled", true) #indicates to world that this is no longer a valid target
+		deathAnim.play("default")
 		emit_signal("died", self)
+
+func _on_death_animation_animation_finished():
+	queue_free()

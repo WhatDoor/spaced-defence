@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://dvu2oybv185ua"]
+[gd_scene load_steps=16 format=3 uid="uid://dvu2oybv185ua"]
 
 [ext_resource type="Script" path="res://resources/enemies/enemy.gd" id="1_qogsr"]
 [ext_resource type="Texture2D" uid="uid://b74007ovk7s2l" path="res://resources/sprites/SpaceShooterAssetPack_Ships.png" id="1_qy0oi"]
 [ext_resource type="Texture2D" uid="uid://cv77oinw4fc0t" path="res://resources/sprites/target_indicator.png" id="3_s5s8u"]
 [ext_resource type="PackedScene" uid="uid://4xiasq1xw1ii" path="res://components/healthComponent.tscn" id="4_35w4p"]
 [ext_resource type="PackedScene" uid="uid://brnfjnf6dx7xe" path="res://components/hurtboxComponent.tscn" id="5_1qbvp"]
+[ext_resource type="Texture2D" uid="uid://cljfwmau0napf" path="res://resources/sprites/All_Fire_Bullet_Pixel_16x16.png" id="6_xlt8y"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7iqon"]
 radius = 7.0
@@ -13,7 +14,58 @@ height = 16.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_4bakg"]
 radius = 7.07107
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_lldw1"]
+atlas = ExtResource("6_xlt8y")
+region = Rect2(192, 240, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5pu63"]
+atlas = ExtResource("6_xlt8y")
+region = Rect2(176, 208, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ygq3v"]
+atlas = ExtResource("6_xlt8y")
+region = Rect2(208, 288, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xvg4v"]
+atlas = ExtResource("6_xlt8y")
+region = Rect2(224, 288, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oh5bj"]
+atlas = ExtResource("6_xlt8y")
+region = Rect2(256, 288, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f3rno"]
+atlas = ExtResource("6_xlt8y")
+region = Rect2(240, 288, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hm0us"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lldw1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5pu63")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ygq3v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xvg4v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oh5bj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f3rno")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
 [node name="enemy" type="CharacterBody2D"]
+scale = Vector2(3, 3)
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_qogsr")
@@ -35,7 +87,7 @@ visible = false
 texture = ExtResource("3_s5s8u")
 
 [node name="HealthComponent" parent="." instance=ExtResource("4_35w4p")]
-max_HP = 2
+max_HP = 1
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("5_1qbvp")]
 collision_layer = 0
@@ -44,4 +96,11 @@ healthComponent = NodePath("../HealthComponent")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
 shape = SubResource("CircleShape2D_4bakg")
 
+[node name="deathAnimation" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_hm0us")
+frame = 3
+frame_progress = 0.135169
+
 [connection signal="HP_changed" from="HealthComponent" to="." method="_on_health_component_hp_changed"]
+[connection signal="animation_finished" from="deathAnimation" to="." method="_on_death_animation_animation_finished"]

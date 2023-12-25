@@ -1,0 +1,70 @@
+[gd_scene load_steps=5 format=3 uid="uid://ck4loq7syy2to"]
+
+[ext_resource type="PackedScene" uid="uid://b28ai6lky601j" path="res://resources/player/player.tscn" id="1_bbm7r"]
+[ext_resource type="Script" path="res://main.gd" id="1_ufmp5"]
+[ext_resource type="Texture2D" uid="uid://7ykkt5lcn07b" path="res://resources/Space Background.png" id="2_nkji7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ts13u"]
+size = Vector2(625, 340)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_ufmp5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_nkji7")
+
+[node name="Player" parent="." instance=ExtResource("1_bbm7r")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+
+[node name="DetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_ts13u")
+debug_color = Color(0.803922, 0.00784314, 1, 0.419608)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 163.0
+offset_top = -172.0
+offset_right = 315.0
+offset_bottom = 171.0
+size_flags_horizontal = 4
+
+[node name="Button" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 35.0
+offset_top = -112.5
+offset_right = 57.0
+offset_bottom = -81.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "+"
+
+[node name="TextEdit" type="TextEdit" parent="Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -77.0
+offset_bottom = 37.0
+grow_horizontal = 0
+text = "Points: "
+
+[connection signal="fire" from="Player" to="." method="_on_player_fire"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
