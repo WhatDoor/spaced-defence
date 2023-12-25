@@ -6,6 +6,7 @@ signal upgrade_purchased(upgrade_name: String)
 
 @onready var BlasterUpgradeContainer = $MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/BlasterUpgradeContainer
 @onready var ThrusterUpgradeContainer = $MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/ThrusterUpgradeContainer
+@onready var HighDensityAmmoContainer = $MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/HighDensityAmmoContainer
 
 var points = 0
 
@@ -28,6 +29,21 @@ var upgrade_data = {
 	"thrusters_upgrade": {
 		"current_level": 1,
 		"label": "Thruster Upgrade\n",
+		"cost_per_level": {
+			2: 100,
+			3: 100,
+			4: 100,
+			5: 100,
+			6: 100,
+			7: 100,
+			8: 100,
+			9: 100,
+			10: 100,
+		}
+	},
+	"high_density_ammo": {
+		"current_level": 1,
+		"label": "High Density Ammo\n",
 		"cost_per_level": {
 			2: 100,
 			3: 100,
@@ -80,3 +96,7 @@ func _on_blaster_upgrade_label_pressed():
 func _on_thrusther_upgrade_label_pressed():
 	buy_if_possible("thrusters_upgrade")
 	update_upgrade_ui(ThrusterUpgradeContainer, "thrusters_upgrade")
+
+func _on_high_density_ammo_pressed():
+	buy_if_possible("high_density_ammo")
+	update_upgrade_ui(HighDensityAmmoContainer, "high_density_ammo")

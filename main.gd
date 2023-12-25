@@ -69,9 +69,9 @@ func _on_spawn_timer_timeout():
 	enemy_node.connect("died", Callable(self, "handle_enemy_died"))
 	call_deferred("add_child", enemy_node)
 
-func _on_player_fire(bullet_direction: Vector2):
+func _on_player_fire(bullet_direction: Vector2, bullet_penetration_chance: float):
 	var bullet_node = bullet_template.instantiate()
-	bullet_node.init(bullet_direction, player.global_position);
+	bullet_node.init(bullet_direction, player.global_position, bullet_penetration_chance);
 	call_deferred("add_child", bullet_node)
 	
 func handle_enemy_died(enemy: CharacterBody2D):
