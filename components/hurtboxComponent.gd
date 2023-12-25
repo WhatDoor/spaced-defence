@@ -4,4 +4,4 @@ class_name HurtboxComponent extends Area2D
 
 func _on_area_entered(bullet):
 	healthComponent.take_damage(bullet.damage)
-	bullet.queue_free()
+	bullet.destroy()

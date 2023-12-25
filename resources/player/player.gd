@@ -2,8 +2,8 @@ extends CharacterBody2D
 
 signal fire(bullet_direction: Vector2)
 
-var rotation_speed = 1200 #degrees per second
-const attack_speed = 1.0 #attacks per second
+var rotation_speed = 180 #degrees per second
+var attack_speed = 1.0 #attacks per second
 
 var attack_speed_reset = 1/attack_speed
 var counter_to_attack = 0
@@ -37,4 +37,11 @@ func _physics_process(delta):
 				rotation_degrees -= rotation_speed_per_frame
 
 func upgrade_purchased(upgrade_name: String):
-	pass
+	match (upgrade_name):
+		"blaster_upgrade":
+			attack_speed += 1.0
+			attack_speed_reset = 1/attack_speed
+		"thrusters_upgrade":
+			rotation_speed += 100
+		_:
+			print("unknown upgrade purchased")

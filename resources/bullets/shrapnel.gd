@@ -40,3 +40,6 @@ func _physics_process(delta):
 
 func _on_expiry_timer_timeout():
 	queue_free()
+
+func destroy():
+	queue_free()
