@@ -46,6 +46,6 @@ func upgrade_purchased(upgrade_name: String):
 		"thrusters_upgrade":
 			rotation_speed += 100
 		"high_density_ammo":
-			bullet_penetration_chance += 0.1
+			bullet_penetration_chance += 0.2
 		_:
 			print("unknown upgrade purchased")
