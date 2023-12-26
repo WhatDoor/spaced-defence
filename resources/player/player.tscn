@@ -1,12 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://b28ai6lky601j"]
+[gd_scene load_steps=7 format=3 uid="uid://b28ai6lky601j"]
 
 [ext_resource type="Texture2D" uid="uid://b74007ovk7s2l" path="res://resources/sprites/SpaceShooterAssetPack_Ships.png" id="1_i1vyn"]
 [ext_resource type="Script" path="res://resources/player/player.gd" id="1_o0u1v"]
-[ext_resource type="PackedScene" uid="uid://c7eib0hi1r5ry" path="res://components/ShieldsComponent.tscn" id="3_fy3ds"]
+[ext_resource type="PackedScene" uid="uid://brnfjnf6dx7xe" path="res://components/hurtboxComponent.tscn" id="4_ppxdq"]
+[ext_resource type="PackedScene" uid="uid://4xiasq1xw1ii" path="res://components/healthComponent.tscn" id="5_t414h"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1l8x6"]
 radius = 5.0
 height = 14.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ar4a7"]
+radius = 3.0
+height = 12.0
 
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(3, 3)
@@ -23,10 +28,21 @@ vframes = 5
 frame = 22
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_1l8x6")
 
 [node name="AttackSpeedTimer" type="Timer" parent="."]
 
-[node name="ShieldsComponent" parent="." instance=ExtResource("3_fy3ds")]
-starting_shields = 2
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("4_ppxdq")]
+collision_layer = 0
+collision_mask = 2
+healthComponent = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_ar4a7")
+
+[node name="HealthComponent" parent="." instance=ExtResource("5_t414h")]
+max_HP = 1
+max_shield = 3
