@@ -169,22 +169,22 @@ text = "High Density Ammo
 layout_mode = 2
 theme_override_constants/margin_left = 35
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Control/MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer"]
+[node name="EnemyFractureChanceContainer" type="VBoxContainer" parent="Control/MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="ProgressBar" type="ProgressBar" parent="Control/MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2"]
+[node name="ProgressBar" type="ProgressBar" parent="Control/MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/EnemyFractureChanceContainer"]
 layout_mode = 2
 theme = ExtResource("5_8fu6h")
 max_value = 10.0
 step = 1.0
-value = 10.0
+value = 1.0
 show_percentage = false
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/EnemyFractureChanceContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 15
 
-[node name="PrecisinFiringUpgrade" type="Button" parent="Control/MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/MarginContainer"]
+[node name="enemy_fracture_chance" type="Button" parent="Control/MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/EnemyFractureChanceContainer/MarginContainer"]
 layout_mode = 2
 tooltip_text = "Increases chance of destroyed enemy ships fracturing"
 theme = ExtResource("5_8fu6h")
@@ -288,3 +288,4 @@ text = "Supernova
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/BlasterUpgradeContainer/MarginContainer/blaster_upgrade" to="Control" method="_on_blaster_upgrade_label_pressed"]
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/ThrusterUpgradeContainer/MarginContainer/thrusters_upgrade" to="Control" method="_on_thrusther_upgrade_label_pressed"]
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/HighDensityAmmoContainer/MarginContainer/high_density_ammo" to="Control" method="_on_high_density_ammo_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/EnemyFractureChanceContainer/MarginContainer/enemy_fracture_chance" to="Control" method="_on_enemy_fracture_chance_pressed"]

@@ -75,20 +75,24 @@ func _on_player_fire(bullet_direction: Vector2, bullet_penetration_chance: float
 	call_deferred("add_child", bullet_node)
 	
 func handle_enemy_died(enemy: CharacterBody2D):
-	UI.add_points(1)
+	UI.add_points(enemy.point_value)
 	
-	#spawn shrapnel
-	var spawn_rng = rng.randf()
-	if (spawn_rng > 0.50):
-		var left_shrapnel_node = shrapnel_template.instantiate()
-		left_shrapnel_node.init(left_shrapnel_node.shrapnel_types.LEFT, enemy.global_position)
-		call_deferred("add_child", left_shrapnel_node)
+	var fracture_chance = player.enemy_fracture_chance * enemy.fracture_chance
+	
+	#Check fracture chance
+	if (rng.randf() <= fracture_chance):
+		#spawn shrapnel
+		var spawn_rng = rng.randf()
+		if (spawn_rng > 0.50):
+			var left_shrapnel_node = shrapnel_template.instantiate()
+			left_shrapnel_node.init(left_shrapnel_node.shrapnel_types.LEFT, enemy.global_position)
+			call_deferred("add_child", left_shrapnel_node)
 
-	spawn_rng = rng.randf()
-	if (spawn_rng > 0.50):
-		var right_shrapnel_node = shrapnel_template.instantiate()
-		right_shrapnel_node.init(right_shrapnel_node.shrapnel_types.RIGHT, enemy.global_position)
-		call_deferred("add_child",right_shrapnel_node)
+		spawn_rng = rng.randf()
+		if (spawn_rng > 0.50):
+			var right_shrapnel_node = shrapnel_template.instantiate()
+			right_shrapnel_node.init(right_shrapnel_node.shrapnel_types.RIGHT, enemy.global_position)
+			call_deferred("add_child",right_shrapnel_node)
 
 func _on_control_upgrade_purchased(upgrade_name):
 	player.upgrade_purchased(upgrade_name)

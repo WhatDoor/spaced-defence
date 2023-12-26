@@ -11,6 +11,8 @@ var ready_to_fire = false
 
 var bullet_penetration_chance = 0.1
 
+var enemy_fracture_chance = 0.1
+
 var target_enemy = null
 
 func _physics_process(delta):
@@ -47,5 +49,7 @@ func upgrade_purchased(upgrade_name: String):
 			rotation_speed += 100
 		"high_density_ammo":
 			bullet_penetration_chance += 0.2
+		"enemy_fracture_chance":
+			enemy_fracture_chance += 0.1
 		_:
 			print("unknown upgrade purchased")

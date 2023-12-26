@@ -7,6 +7,7 @@ signal upgrade_purchased(upgrade_name: String)
 @onready var BlasterUpgradeContainer = $MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/BlasterUpgradeContainer
 @onready var ThrusterUpgradeContainer = $MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/ThrusterUpgradeContainer
 @onready var HighDensityAmmoContainer = $MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/HighDensityAmmoContainer
+@onready var EnemyFractureChanceContainer = $MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/EnemyFractureChanceContainer
 
 var points = 0
 
@@ -44,6 +45,21 @@ var upgrade_data = {
 	"high_density_ammo": {
 		"current_level": 1,
 		"label": "High Density Ammo\n",
+		"cost_per_level": {
+			2: 100,
+			3: 100,
+			4: 100,
+			5: 100,
+			6: 100,
+			7: 100,
+			8: 100,
+			9: 100,
+			10: 100,
+		}
+	},
+	"enemy_fracture_chance": {
+		"current_level": 1,
+		"label": "Precision Firing\n",
 		"cost_per_level": {
 			2: 100,
 			3: 100,
@@ -100,3 +116,7 @@ func _on_thrusther_upgrade_label_pressed():
 func _on_high_density_ammo_pressed():
 	buy_if_possible("high_density_ammo")
 	update_upgrade_ui(HighDensityAmmoContainer, "high_density_ammo")
+
+func _on_enemy_fracture_chance_pressed():
+	buy_if_possible("enemy_fracture_chance")
+	update_upgrade_ui(EnemyFractureChanceContainer, "enemy_fracture_chance")

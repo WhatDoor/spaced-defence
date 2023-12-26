@@ -6,7 +6,9 @@ signal died(enemy: CharacterBody2D)
 
 @onready var deathAnim = $deathAnimation
 
+const point_value = 1;
 var SPEED: int = 2000;
+const fracture_chance = 1.0;
 
 func init(player_target: CharacterBody2D, starting_pos: Vector2):
 	target = player_target;
