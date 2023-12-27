@@ -1,6 +1,7 @@
 extends Control
 
 signal upgrade_purchased(upgrade_name: String)
+signal consumable_purchased(consumable: String)
 
 @onready var points_label = $MarginContainer/VBoxContainer/Label
 
@@ -74,11 +75,16 @@ var upgrade_data = {
 	}
 }
 
+var consumable_costs = {
+	"shields": 1, 
+	"drones": 1,
+}
+
 func add_points(add_amount: int):
 	points += add_amount
 	points_label.set_text("Points: " + str(points))
 
-func buy_if_possible(upgrade_name: String):
+func buy_upgrade_if_possible(upgrade_name: String):
 	var single_upgrade_data = upgrade_data[upgrade_name]
 	var next_level_cost = single_upgrade_data.cost_per_level.get(single_upgrade_data.current_level + 1)
 	
@@ -106,17 +112,24 @@ func update_upgrade_ui(container: Control, upgrade_name):
 	points_label.set_text("Points: " + str(points))
 
 func _on_blaster_upgrade_label_pressed():
-	buy_if_possible("blaster_upgrade")
+	buy_upgrade_if_possible("blaster_upgrade")
 	update_upgrade_ui(BlasterUpgradeContainer, "blaster_upgrade")
 
 func _on_thrusther_upgrade_label_pressed():
-	buy_if_possible("thrusters_upgrade")
+	buy_upgrade_if_possible("thrusters_upgrade")
 	update_upgrade_ui(ThrusterUpgradeContainer, "thrusters_upgrade")
 
 func _on_high_density_ammo_pressed():
-	buy_if_possible("high_density_ammo")
+	buy_upgrade_if_possible("high_density_ammo")
 	update_upgrade_ui(HighDensityAmmoContainer, "high_density_ammo")
 
 func _on_enemy_fracture_chance_pressed():
-	buy_if_possible("enemy_fracture_chance")
+	buy_upgrade_if_possible("enemy_fracture_chance")
 	update_upgrade_ui(EnemyFractureChanceContainer, "enemy_fracture_chance")
+
+func buy_consumable(consumable: String):
+	if points >= consumable_costs[consumable]:
+		emit_signal("consumable_purchased", consumable)
+
+func consumable_purchase_confirmed(consumable: String, new_consumable_value: int):
+	find_child(consumable + "Container").find_child("ProgressBar").value = new_consumable_value

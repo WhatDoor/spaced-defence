@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 signal fire(bullet_direction: Vector2, bullet_penetration_chance: float)
 
+@onready var HPComponent = $HealthComponent
+
 var rotation_speed = 180 #degrees per second
 var attack_speed = 1.0 #attacks per second
 
@@ -10,7 +12,6 @@ var counter_to_attack = 0
 var ready_to_fire = false
 
 var bullet_penetration_chance = 0.1
-
 var enemy_fracture_chance = 0.1
 
 var target_enemy = null
@@ -53,3 +54,20 @@ func upgrade_purchased(upgrade_name: String):
 			enemy_fracture_chance += 0.1
 		_:
 			print("unknown upgrade purchased")
+
+func buy_consumable(consumable: String):
+	match (consumable):
+		"shields":
+			if HPComponent.current_Shield < 3:
+				HPComponent.add_shield()
+				return HPComponent.current_Shield
+		"drones":
+			pass
+		_:
+			print("unknonw consumable purchased")
+			return null
+
+func _on_health_component_hp_changed(old, new):
+	if (new == 0):
+		queue_free() #ded
+		get_tree().paused = true

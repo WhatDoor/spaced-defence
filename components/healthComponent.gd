@@ -1,4 +1,4 @@
-class_name HealthComponent extends Node
+extends Node2D
 
 signal HP_changed(old: int, new: int)
 
@@ -12,6 +12,9 @@ func _ready():
 	current_HP = max_HP
 	current_Shield = max_shield
 	set_shields(current_Shield)
+	
+func _physics_process(delta):
+	rotation = -get_parent().rotation
 
 func set_shields(number_of_shields: int):
 	var shield_counter = number_of_shields
