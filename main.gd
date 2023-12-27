@@ -100,4 +100,4 @@ func _on_control_upgrade_purchased(upgrade_name):
 func _on_control_consumable_purchased(consumable):
 	var new_consumable_value = player.buy_consumable(consumable)
 	if new_consumable_value != null:
-		UI.consumable_purchase_confirmed(new_consumable_value)
+		UI.consumable_purchase_confirmed(consumable, new_consumable_value)

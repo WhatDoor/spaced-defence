@@ -290,3 +290,4 @@ text = "Supernova
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/ThrusterUpgradeContainer/MarginContainer/thrusters_upgrade" to="Control" method="_on_thrusther_upgrade_label_pressed"]
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/HighDensityAmmoContainer/MarginContainer/high_density_ammo" to="Control" method="_on_high_density_ammo_pressed"]
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/EnemyFractureChanceContainer/MarginContainer/enemy_fracture_chance" to="Control" method="_on_enemy_fracture_chance_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer/shieldsContainer/MarginContainer/BuyShields" to="Control" method="_on_buy_shields_pressed"]

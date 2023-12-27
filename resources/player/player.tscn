@@ -45,6 +45,6 @@ shape = SubResource("CapsuleShape2D_ar4a7")
 
 [node name="HealthComponent" parent="." instance=ExtResource("5_t414h")]
 max_HP = 1
-max_shield = 3
+max_shield = 1
 
 [connection signal="HP_changed" from="HealthComponent" to="." method="_on_health_component_hp_changed"]

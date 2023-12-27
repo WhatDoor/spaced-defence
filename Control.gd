@@ -133,3 +133,6 @@ func buy_consumable(consumable: String):
 
 func consumable_purchase_confirmed(consumable: String, new_consumable_value: int):
 	find_child(consumable + "Container").find_child("ProgressBar").value = new_consumable_value
+
+func _on_buy_shields_pressed():
+	buy_consumable("shields")
