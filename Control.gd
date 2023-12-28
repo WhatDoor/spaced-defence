@@ -76,8 +76,44 @@ var upgrade_data = {
 }
 
 var consumable_costs = {
-	"shields": 10, 
-	"drones": 1,
+	"shields": {
+		"label": "Shields\n",
+		"cost_per_level": {
+			0: 500,
+			1: 600,
+			2: 700,
+		}
+	},
+	"attack_drone": {
+		"label": "Attack Drone\n",
+		"cost_per_level": {
+			0: 500,
+			1: 600,
+			2: 700,
+			3: 700,
+			4: 700,
+		}
+	},
+	"gravity_drone": {
+		"label": "Gravity Drone\n",
+		"cost_per_level": {
+			0: 500,
+			1: 600,
+			2: 700,
+			3: 700,
+			4: 700,
+		}
+	},
+	"cash_drone": {
+		"label": "Cash Drone\n",
+		"cost_per_level": {
+			0: 500,
+			1: 600,
+			2: 700,
+			3: 700,
+			4: 700,
+		}
+	}
 }
 
 func add_points(add_amount: int):
@@ -127,19 +163,21 @@ func _on_enemy_fracture_chance_pressed():
 	buy_upgrade_if_possible("enemy_fracture_chance")
 	update_upgrade_ui(EnemyFractureChanceContainer, "enemy_fracture_chance")
 
-func buy_consumable(consumable: String):
-	if points >= consumable_costs[consumable]:
-		emit_signal("consumable_purchased", consumable)
-
 func consumable_purchase_confirmed(consumable: String, new_consumable_value: int):
+	var current_level = find_child(consumable + "Container").find_child("ProgressBar").value
+	points -= consumable_costs[consumable].cost_per_level[int(current_level)]
+	
 	find_child(consumable + "Container").find_child("ProgressBar").value = new_consumable_value
-	points -= consumable_costs[consumable]
 
 func _on_buy_shields_pressed():
-	buy_consumable("shields")
+	var current_level = find_child("shieldsContainer").find_child("ProgressBar").value
+	var price = consumable_costs["shields"].cost_per_level.get(int(current_level))
+	
+	if price != null && points >= price:
+		emit_signal("consumable_purchased", "shields")
 
 func _on_buy_attack_drone_pressed():
-	buy_consumable("AttackDrone")
+	pass
 
 func update_shield_val(new_shield_val: int):
 	find_child("shieldsContainer").find_child("ProgressBar").value = new_shield_val
