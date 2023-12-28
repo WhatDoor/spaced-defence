@@ -10,9 +10,10 @@
             "request": "launch",
             "project": "${workspaceFolder}",
             "port": 6006,
+            "debugServer": 6006,
             "address": "tcp://127.0.0.1",
             "launch_game_instance": true,
-            "launch_scene": false
+            "launch_scene": false,
         }
     ]
 }

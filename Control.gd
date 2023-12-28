@@ -169,6 +169,9 @@ func consumable_purchase_confirmed(consumable: String, new_consumable_value: int
 	
 	find_child(consumable + "Container").find_child("ProgressBar").value = new_consumable_value
 
+	#Update points text
+	points_label.set_text("Points: " + str(points))
+
 func _on_buy_shields_pressed():
 	var current_level = find_child("shieldsContainer").find_child("ProgressBar").value
 	var price = consumable_costs["shields"].cost_per_level.get(int(current_level))
