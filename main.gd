@@ -101,3 +101,7 @@ func _on_control_consumable_purchased(consumable):
 	var new_consumable_value = player.buy_consumable(consumable)
 	if new_consumable_value != null:
 		UI.consumable_purchase_confirmed(consumable, new_consumable_value)
+
+func _on_player_shield_hit(new_shield_val: int):
+	UI.update_shield_val(new_shield_val)
+	UI.clear_drones()

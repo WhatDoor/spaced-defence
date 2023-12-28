@@ -10,7 +10,7 @@ signal consumable_purchased(consumable: String)
 @onready var HighDensityAmmoContainer = $MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/HighDensityAmmoContainer
 @onready var EnemyFractureChanceContainer = $MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/EnemyFractureChanceContainer
 
-var points = 0
+@export var points = 0
 
 var upgrade_data = {
 	"blaster_upgrade": {
@@ -137,3 +137,12 @@ func consumable_purchase_confirmed(consumable: String, new_consumable_value: int
 
 func _on_buy_shields_pressed():
 	buy_consumable("shields")
+
+func _on_buy_attack_drone_pressed():
+	buy_consumable("AttackDrone")
+
+func update_shield_val(new_shield_val: int):
+	find_child("shieldsContainer").find_child("ProgressBar").value = new_shield_val
+
+func clear_drones():
+	find_child("dronesContainer").find_child("ProgressBar").value = 0

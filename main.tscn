@@ -55,6 +55,7 @@ grow_vertical = 2
 size_flags_horizontal = 8
 theme = SubResource("Theme_tvssf")
 script = ExtResource("5_wxjjd")
+points = 9999
 
 [node name="MarginContainer" type="MarginContainer" parent="Control"]
 layout_mode = 1
@@ -191,19 +192,15 @@ theme = ExtResource("5_8fu6h")
 text = "Precision Firing
 100"
 
-[node name="MarginContainer3" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer"]
+[node name="MarginContainer6" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 35
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer/MarginContainer3"]
+[node name="shieldsContainer" type="VBoxContainer" parent="Control/MarginContainer/VBoxContainer/MarginContainer6"]
 layout_mode = 2
 alignment = 1
 
-[node name="shieldsContainer" type="VBoxContainer" parent="Control/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="ProgressBar" type="ProgressBar" parent="Control/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer/shieldsContainer"]
+[node name="ProgressBar" type="ProgressBar" parent="Control/MarginContainer/VBoxContainer/MarginContainer6/shieldsContainer"]
 layout_mode = 2
 theme = ExtResource("5_8fu6h")
 max_value = 3.0
@@ -211,41 +208,72 @@ step = 1.0
 value = 1.0
 show_percentage = false
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer/shieldsContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer/MarginContainer6/shieldsContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 15
 
-[node name="BuyShields" type="Button" parent="Control/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer/shieldsContainer/MarginContainer"]
+[node name="BuyShields" type="Button" parent="Control/MarginContainer/VBoxContainer/MarginContainer6/shieldsContainer/MarginContainer"]
 layout_mode = 2
+tooltip_text = "Each shield grants an additional life"
 theme = ExtResource("5_8fu6h")
 theme_override_font_sizes/font_size = 30
 text = "Shields
 50"
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
+[node name="MarginContainer3" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 35
 
-[node name="dronesContainer" type="VBoxContainer" parent="Control/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer/MarginContainer"]
+[node name="dronesContainer" type="VBoxContainer" parent="Control/MarginContainer/VBoxContainer/MarginContainer3"]
 layout_mode = 2
+alignment = 1
 
-[node name="ProgressBar" type="ProgressBar" parent="Control/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer/MarginContainer/dronesContainer"]
+[node name="ProgressBar" type="ProgressBar" parent="Control/MarginContainer/VBoxContainer/MarginContainer3/dronesContainer"]
 layout_mode = 2
 theme = ExtResource("5_8fu6h")
-max_value = 3.0
+max_value = 5.0
 step = 1.0
-value = 2.0
+value = 1.0
 show_percentage = false
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer/MarginContainer/dronesContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer/MarginContainer3/dronesContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 15
 
-[node name="BuyDrones" type="Button" parent="Control/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer/MarginContainer/dronesContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer/MarginContainer3/dronesContainer/MarginContainer"]
 layout_mode = 2
+alignment = 1
+
+[node name="BuyAttackDrone" type="Button" parent="Control/MarginContainer/VBoxContainer/MarginContainer3/dronesContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Shoots when you do"
 theme = ExtResource("5_8fu6h")
-theme_override_font_sizes/font_size = 30
-text = "Drones
+theme_override_font_sizes/font_size = 20
+text = "Attack Drone
+100"
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer/MarginContainer3/dronesContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 21
+
+[node name="BuyGravityDrone" type="Button" parent="Control/MarginContainer/VBoxContainer/MarginContainer3/dronesContainer/MarginContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+tooltip_text = "Creates gravity wells that clump enemies"
+theme = ExtResource("5_8fu6h")
+theme_override_font_sizes/font_size = 20
+text = "Gravity Drone
+100"
+
+[node name="MarginContainer2" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer/MarginContainer3/dronesContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 21
+
+[node name="BuyCashDrone" type="Button" parent="Control/MarginContainer/VBoxContainer/MarginContainer3/dronesContainer/MarginContainer/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+tooltip_text = "Doubles the value of each kill"
+theme = ExtResource("5_8fu6h")
+theme_override_font_sizes/font_size = 20
+text = "Cash Drone
 100"
 
 [node name="MarginContainer4" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer"]
@@ -283,6 +311,7 @@ text = "Supernova
 100"
 
 [connection signal="fire" from="Player" to="." method="_on_player_fire"]
+[connection signal="shield_hit" from="Player" to="." method="_on_player_shield_hit"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="consumable_purchased" from="Control" to="." method="_on_control_consumable_purchased"]
 [connection signal="upgrade_purchased" from="Control" to="." method="_on_control_upgrade_purchased"]
@@ -290,4 +319,5 @@ text = "Supernova
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/ThrusterUpgradeContainer/MarginContainer/thrusters_upgrade" to="Control" method="_on_thrusther_upgrade_label_pressed"]
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/HighDensityAmmoContainer/MarginContainer/high_density_ammo" to="Control" method="_on_high_density_ammo_pressed"]
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/EnemyFractureChanceContainer/MarginContainer/enemy_fracture_chance" to="Control" method="_on_enemy_fracture_chance_pressed"]
-[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer/shieldsContainer/MarginContainer/BuyShields" to="Control" method="_on_buy_shields_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/MarginContainer6/shieldsContainer/MarginContainer/BuyShields" to="Control" method="_on_buy_shields_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/MarginContainer3/dronesContainer/MarginContainer/HBoxContainer/BuyAttackDrone" to="Control" method="_on_buy_attack_drone_pressed"]

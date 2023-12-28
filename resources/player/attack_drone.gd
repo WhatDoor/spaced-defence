@@ -11,7 +11,6 @@ func _ready():
 	tween.set_loops() #loop infinitely
 	tween.tween_property(self, "position", Vector2(0, 20), 1)
 	tween.tween_property(self, "position", Vector2(0, -20), 1)
-	run_away()
 
 func run_away():
 	tween.kill()

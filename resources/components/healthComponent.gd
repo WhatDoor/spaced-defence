@@ -48,4 +48,4 @@ func break_shield():
 	if (current_Shield > 0):
 		find_child("shield_" + str(current_Shield)).visible = false
 		current_Shield -= 1
-		emit_signal("shield_hit")
+		emit_signal("shield_hit", current_Shield)

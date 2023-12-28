@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 signal fire(bullet_direction: Vector2, bullet_penetration_chance: float)
+signal shield_hit(new_shield_val: int)
 
 @onready var HPComponent = $HealthComponent
 
@@ -77,5 +78,7 @@ func _on_health_component_hp_changed(old, new):
 		queue_free() #ded
 		get_tree().paused = true
 
-func _on_health_component_shield_hit():
+func _on_health_component_shield_hit(new_shield_val):
 	attack_drone.run_away()
+	emit_signal("shield_hit", new_shield_val)
+	
