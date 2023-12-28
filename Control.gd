@@ -76,7 +76,7 @@ var upgrade_data = {
 }
 
 var consumable_costs = {
-	"shields": 1, 
+	"shields": 10, 
 	"drones": 1,
 }
 
@@ -133,6 +133,7 @@ func buy_consumable(consumable: String):
 
 func consumable_purchase_confirmed(consumable: String, new_consumable_value: int):
 	find_child(consumable + "Container").find_child("ProgressBar").value = new_consumable_value
+	points -= consumable_costs[consumable]
 
 func _on_buy_shields_pressed():
 	buy_consumable("shields")

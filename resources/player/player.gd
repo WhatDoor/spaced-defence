@@ -16,6 +16,8 @@ var enemy_fracture_chance = 0.1
 
 var target_enemy = null
 
+@onready var attack_drone = $DroneAnchor/AttackDrone
+
 func _physics_process(delta):
 	counter_to_attack += delta
 	
@@ -23,7 +25,10 @@ func _physics_process(delta):
 	if (counter_to_attack >= attack_speed_reset && ready_to_fire):
 		counter_to_attack -= attack_speed_reset
 		var bullet_direction = to_global(Vector2(1, 0)).normalized() #shoot forwards, wherever that is
-		emit_signal("fire", bullet_direction, bullet_penetration_chance)
+		emit_signal("fire", bullet_direction, position, bullet_penetration_chance)
+		
+		if (attack_drone.active):
+			emit_signal("fire", bullet_direction, to_global(attack_drone.position), bullet_penetration_chance)
 
 	#Even if we can't shoot for some time, keep the counter clamped at the max amount
 	counter_to_attack = clampf(counter_to_attack, 0, attack_speed_reset)
@@ -64,10 +69,13 @@ func buy_consumable(consumable: String):
 		"drones":
 			pass
 		_:
-			print("unknonw consumable purchased")
+			print("unknown consumable purchased")
 			return null
 
 func _on_health_component_hp_changed(old, new):
 	if (new == 0):
 		queue_free() #ded
 		get_tree().paused = true
+
+func _on_health_component_shield_hit():
+	attack_drone.run_away()

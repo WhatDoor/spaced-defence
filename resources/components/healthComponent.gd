@@ -1,6 +1,7 @@
 extends Node2D
 
 signal HP_changed(old: int, new: int)
+signal shield_hit
 
 @export var max_HP: int
 @export var max_shield: int
@@ -47,3 +48,4 @@ func break_shield():
 	if (current_Shield > 0):
 		find_child("shield_" + str(current_Shield)).visible = false
 		current_Shield -= 1
+		emit_signal("shield_hit")

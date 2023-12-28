@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://4xiasq1xw1ii"]
 
-[ext_resource type="Script" path="res://components/healthComponent.gd" id="1_auky5"]
+[ext_resource type="Script" path="res://resources/components/healthComponent.gd" id="1_auky5"]
 [ext_resource type="Texture2D" uid="uid://de2rvs5nl00x3" path="res://resources/sprites/shield_1.png" id="2_uv7hr"]
 [ext_resource type="Texture2D" uid="uid://dsycyxidss6c1" path="res://resources/sprites/shield_2.png" id="3_vunxa"]
 [ext_resource type="Texture2D" uid="uid://biyed3vffxnv2" path="res://resources/sprites/shield_3.png" id="4_00atx"]

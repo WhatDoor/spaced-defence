@@ -8,7 +8,7 @@ var rng = RandomNumberGenerator.new()
 
 func init(start_direction: Vector2, start_position: Vector2, bullet_penetration_chance):
 	position = start_position
-	look_at(start_direction)
+	look_at(start_position + start_direction)
 	direction = start_direction
 	position += direction * 10
 	penetration_chance = bullet_penetration_chance

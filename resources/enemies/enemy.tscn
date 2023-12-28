@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://resources/enemies/enemy.gd" id="1_qogsr"]
 [ext_resource type="Texture2D" uid="uid://b74007ovk7s2l" path="res://resources/sprites/SpaceShooterAssetPack_Ships.png" id="1_qy0oi"]
 [ext_resource type="Texture2D" uid="uid://cv77oinw4fc0t" path="res://resources/sprites/target_indicator.png" id="3_s5s8u"]
-[ext_resource type="PackedScene" uid="uid://4xiasq1xw1ii" path="res://components/healthComponent.tscn" id="4_35w4p"]
-[ext_resource type="PackedScene" uid="uid://brnfjnf6dx7xe" path="res://components/hurtboxComponent.tscn" id="5_1qbvp"]
+[ext_resource type="PackedScene" uid="uid://4xiasq1xw1ii" path="res://resources/components/healthComponent.tscn" id="4_35w4p"]
+[ext_resource type="PackedScene" uid="uid://brnfjnf6dx7xe" path="res://resources/components/hurtboxComponent.tscn" id="5_1qbvp"]
 [ext_resource type="Texture2D" uid="uid://cljfwmau0napf" path="res://resources/sprites/All_Fire_Bullet_Pixel_16x16.png" id="6_xlt8y"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7iqon"]
