@@ -212,13 +212,13 @@ show_percentage = false
 layout_mode = 2
 theme_override_constants/margin_top = 15
 
-[node name="BuyShields" type="Button" parent="Control/MarginContainer/VBoxContainer/MarginContainer6/shieldsContainer/MarginContainer"]
+[node name="shields" type="Button" parent="Control/MarginContainer/VBoxContainer/MarginContainer6/shieldsContainer/MarginContainer"]
 layout_mode = 2
 tooltip_text = "Each shield grants an additional life"
 theme = ExtResource("5_8fu6h")
 theme_override_font_sizes/font_size = 30
 text = "Shields
-50"
+600"
 
 [node name="MarginContainer3" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -243,37 +243,37 @@ theme_override_constants/margin_top = 15
 layout_mode = 2
 alignment = 1
 
-[node name="BuyAttackDrone" type="Button" parent="Control/MarginContainer/VBoxContainer/MarginContainer3/dronesContainer/MarginContainer/HBoxContainer"]
+[node name="attack_drone" type="Button" parent="Control/MarginContainer/VBoxContainer/MarginContainer3/dronesContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 tooltip_text = "Shoots when you do"
 theme = ExtResource("5_8fu6h")
 theme_override_font_sizes/font_size = 20
 text = "Attack Drone
-100"
+500"
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer/MarginContainer3/dronesContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 21
 
-[node name="BuyGravityDrone" type="Button" parent="Control/MarginContainer/VBoxContainer/MarginContainer3/dronesContainer/MarginContainer/HBoxContainer/MarginContainer"]
+[node name="gravity_drone" type="Button" parent="Control/MarginContainer/VBoxContainer/MarginContainer3/dronesContainer/MarginContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
 tooltip_text = "Creates gravity wells that clump enemies"
 theme = ExtResource("5_8fu6h")
 theme_override_font_sizes/font_size = 20
 text = "Gravity Drone
-100"
+500"
 
 [node name="MarginContainer2" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer/MarginContainer3/dronesContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 21
 
-[node name="BuyCashDrone" type="Button" parent="Control/MarginContainer/VBoxContainer/MarginContainer3/dronesContainer/MarginContainer/HBoxContainer/MarginContainer2"]
+[node name="cash_drone" type="Button" parent="Control/MarginContainer/VBoxContainer/MarginContainer3/dronesContainer/MarginContainer/HBoxContainer/MarginContainer2"]
 layout_mode = 2
 tooltip_text = "Doubles the value of each kill"
 theme = ExtResource("5_8fu6h")
 theme_override_font_sizes/font_size = 20
 text = "Cash Drone
-100"
+500"
 
 [node name="MarginContainer4" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -318,5 +318,5 @@ text = "Supernova
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/ThrusterUpgradeContainer/MarginContainer/thrusters_upgrade" to="Control" method="_on_thrusther_upgrade_label_pressed"]
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/HighDensityAmmoContainer/MarginContainer/high_density_ammo" to="Control" method="_on_high_density_ammo_pressed"]
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/EnemyFractureChanceContainer/MarginContainer/enemy_fracture_chance" to="Control" method="_on_enemy_fracture_chance_pressed"]
-[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/MarginContainer6/shieldsContainer/MarginContainer/BuyShields" to="Control" method="_on_buy_shields_pressed"]
-[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/MarginContainer3/dronesContainer/MarginContainer/HBoxContainer/BuyAttackDrone" to="Control" method="_on_buy_attack_drone_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/MarginContainer6/shieldsContainer/MarginContainer/shields" to="Control" method="_on_buy_shields_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/MarginContainer3/dronesContainer/MarginContainer/HBoxContainer/attack_drone" to="Control" method="_on_buy_attack_drone_pressed"]

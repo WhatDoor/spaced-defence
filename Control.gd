@@ -164,22 +164,38 @@ func _on_enemy_fracture_chance_pressed():
 	update_upgrade_ui(EnemyFractureChanceContainer, "enemy_fracture_chance")
 
 func consumable_purchase_confirmed(consumable: String, new_consumable_value: int):
-	var current_level = find_child(consumable + "Container").find_child("ProgressBar").value
+	var container = find_child(consumable + "Container")
+	var current_level = container.find_child("ProgressBar").value
 	points -= consumable_costs[consumable].cost_per_level[int(current_level)]
-	find_child(consumable + "Container").find_child("ProgressBar").value = new_consumable_value
-
-	#Update points text
-	points_label.set_text("Points: " + str(points))
-
-func drone_purchase_confirmed(drone_type: String, new_drone_count: int):
-	var current_level = find_child("dronesContainer").find_child("ProgressBar").value
-	points -= consumable_costs[drone_type].cost_per_level[int(current_level)]
-	find_child("dronesContainer").find_child("ProgressBar").value = new_drone_count
+	container.find_child("ProgressBar").value = new_consumable_value
 
 	#Update points text
 	points_label.set_text("Points: " + str(points))
 
 	#Update buttons text
+	var next_level_cost = consumable_costs[consumable].cost_per_level.get(int(current_level + 1))
+	if (next_level_cost != null):
+		container.find_child(consumable).text = consumable_costs[consumable].label + str(next_level_cost)
+	else:
+		container.find_child(consumable).text = consumable_costs[consumable].label + "MAXED"
+		container.find_child(consumable).disabled = true
+
+func drone_purchase_confirmed(drone_type: String, new_drone_count: int):
+	var container = find_child("dronesContainer")
+	var current_level = container.find_child("ProgressBar").value
+	points -= consumable_costs[drone_type].cost_per_level[int(current_level)]
+	container.find_child("ProgressBar").value = new_drone_count
+
+	#Update points text
+	points_label.set_text("Points: " + str(points))
+
+	#Update buttons text
+	var next_level_cost = consumable_costs[drone_type].cost_per_level.get(int(current_level + 1))
+	if (next_level_cost != null):
+		container.find_child(drone_type).text = consumable_costs[drone_type].label + str(next_level_cost)
+	else:
+		container.find_child(drone_type).text = consumable_costs[drone_type].label + "MAXED"
+		container.find_child(drone_type).disabled = true
 
 func _on_buy_shields_pressed():
 	var current_level = find_child("shieldsContainer").find_child("ProgressBar").value
