@@ -189,13 +189,14 @@ func drone_purchase_confirmed(drone_type: String, new_drone_count: int):
 	#Update points text
 	points_label.set_text("Points: " + str(points))
 
-	#Update buttons text
-	var next_level_cost = consumable_costs[drone_type].cost_per_level.get(int(current_level + 1))
-	if (next_level_cost != null):
-		container.find_child(drone_type).text = consumable_costs[drone_type].label + str(next_level_cost)
-	else:
-		container.find_child(drone_type).text = consumable_costs[drone_type].label + "MAXED"
-		container.find_child(drone_type).disabled = true
+	#Update buttons text for all drone types
+	for current_drone_type in ["attack_drone", "gravity_drone", "cash_drone"]:
+		var next_level_cost = consumable_costs[current_drone_type].cost_per_level.get(int(current_level + 1))
+		if (next_level_cost != null):
+			container.find_child(current_drone_type).text = consumable_costs[current_drone_type].label + str(next_level_cost)
+		else:
+			container.find_child(current_drone_type).text = consumable_costs[current_drone_type].label + "MAXED"
+			container.find_child(current_drone_type).disabled = true
 
 func _on_buy_shields_pressed():
 	var current_level = find_child("shieldsContainer").find_child("ProgressBar").value
@@ -211,8 +212,36 @@ func _on_buy_attack_drone_pressed():
 	if price != null && points >= price:
 		emit_signal("consumable_purchased", "attack_drone")
 
+func _on_cash_drone_pressed():
+	var current_level = find_child("dronesContainer").find_child("ProgressBar").value
+	var price = consumable_costs["cash_drone"].cost_per_level.get(int(current_level))
+
+	if price != null && points >= price:
+		emit_signal("consumable_purchased", "cash_drone")
+
 func update_shield_val(new_shield_val: int):
 	find_child("shieldsContainer").find_child("ProgressBar").value = new_shield_val
 
+	#Update buttons text
+	var container = find_child("shieldsContainer")
+	var next_level_cost = consumable_costs["shields"].cost_per_level.get(int(new_shield_val + 1))
+	if (next_level_cost != null):
+		container.find_child("shields").text = consumable_costs["shields"].label + str(next_level_cost)
+		container.find_child("shields").disabled = false
+	else:
+		container.find_child("shields").text = consumable_costs["shields"].label + "MAXED"
+		container.find_child("shields").disabled = true
+
 func clear_drones():
 	find_child("dronesContainer").find_child("ProgressBar").value = 0
+
+	#Update drone prices
+	var container = find_child("dronesContainer")
+	for current_drone_type in ["attack_drone", "gravity_drone", "cash_drone"]:
+		var next_level_cost = consumable_costs[current_drone_type].cost_per_level.get(1)
+		if (next_level_cost != null):
+			container.find_child(current_drone_type).text = consumable_costs[current_drone_type].label + str(next_level_cost)
+			container.find_child(current_drone_type).disabled = false
+		else:
+			container.find_child(current_drone_type).text = consumable_costs[current_drone_type].label + "MAXED"
+			container.find_child(current_drone_type).disabled = true

@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://dqybxm6iihw0b"]
+
+[ext_resource type="Script" path="res://resources/player/cash_drone.gd" id="1_mywqw"]
+[ext_resource type="Texture2D" uid="uid://b74007ovk7s2l" path="res://resources/sprites/SpaceShooterAssetPack_Ships.png" id="2_2vu7x"]
+[ext_resource type="PackedScene" uid="uid://rcx3w6gjrl1p" path="res://resources/components/drone_escape_component.tscn" id="3_ufjuy"]
+[ext_resource type="PackedScene" uid="uid://clu36v4og5o8x" path="res://resources/components/SelfDestructTimerComponent.tscn" id="4_6i8wu"]
+
+[node name="CashDrone" type="Node2D"]
+script = ExtResource("1_mywqw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("2_2vu7x")
+hframes = 10
+vframes = 10
+frame = 21
+
+[node name="DroneEscapeComponent" parent="." node_paths=PackedStringArray("parent_node") instance=ExtResource("3_ufjuy")]
+parent_node = NodePath("..")
+
+[node name="SelfDestructTimer" parent="." node_paths=PackedStringArray("destroy_target") instance=ExtResource("4_6i8wu")]
+wait_time = 10.0
+autostart = false
+destroy_target = NodePath("..")

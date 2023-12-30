@@ -47,8 +47,15 @@ shape = SubResource("CapsuleShape2D_ar4a7")
 max_HP = 1
 max_shield = 1
 
-[node name="DroneAnchor" type="Node2D" parent="."]
+[node name="drones" type="Node2D" parent="."]
+
+[node name="attack_drone_anchor" type="Node2D" parent="drones"]
 position = Vector2(13, 0)
+
+[node name="gravity_drone_anchor" type="Node2D" parent="drones"]
+
+[node name="cash_drone_anchor" type="Node2D" parent="drones"]
+position = Vector2(0, 8)
 
 [connection signal="HP_changed" from="HealthComponent" to="." method="_on_health_component_hp_changed"]
 [connection signal="shield_hit" from="HealthComponent" to="." method="_on_health_component_shield_hit"]

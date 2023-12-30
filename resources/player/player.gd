@@ -20,7 +20,7 @@ var target_enemy = null
 var drones_preloads = {
 	"attack_drone": preload("res://resources/player/attack_drone.tscn"), 
 	"gravity_drone": preload("res://resources/player/attack_drone.tscn"), 
-	"cash_drone": preload("res://resources/player/attack_drone.tscn"), 
+	"cash_drone": preload("res://resources/player/cash_drone.tscn"), 
 }
 var drones = []
 
@@ -77,6 +77,10 @@ func buy_consumable(consumable: String):
 			if drones.size() < 5:
 				add_drone("attack_drone")
 				return drones.size()
+		"cash_drone":
+			if drones.size() < 5:
+				add_drone("cash_drone")
+				return drones.size()
 		_:
 			print("unknown consumable purchased")
 			return null
@@ -84,7 +88,7 @@ func buy_consumable(consumable: String):
 func add_drone(drone_name: String):
 	var new_drone = drones_preloads[drone_name].instantiate()
 	drones.append(new_drone)
-	$DroneAnchor.add_child(new_drone)	
+	find_child(drone_name + "_anchor").add_child(new_drone)	
 
 func _on_health_component_hp_changed(_old, new):
 	if (new == 0):
