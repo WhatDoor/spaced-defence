@@ -17,7 +17,12 @@ var enemy_fracture_chance = 0.1
 
 var target_enemy = null
 
-@onready var attack_drone = $DroneAnchor/AttackDrone
+var drones_preloads = {
+	"attack_drone": preload("res://resources/player/attack_drone.tscn"), 
+	"gravity_drone": preload("res://resources/player/attack_drone.tscn"), 
+	"cash_drone": preload("res://resources/player/attack_drone.tscn"), 
+}
+var drones = []
 
 func _physics_process(delta):
 	counter_to_attack += delta
@@ -27,9 +32,10 @@ func _physics_process(delta):
 		counter_to_attack -= attack_speed_reset
 		var bullet_direction = to_global(Vector2(1, 0)).normalized() #shoot forwards, wherever that is
 		emit_signal("fire", bullet_direction, position, bullet_penetration_chance)
-		
-		if (attack_drone.active):
-			emit_signal("fire", bullet_direction, to_global(attack_drone.position), bullet_penetration_chance)
+
+		for drone in drones:
+			if drone.active && drone.type == "attack_drone":
+				emit_signal("fire", bullet_direction, to_global(drone.position), bullet_penetration_chance)
 
 	#Even if we can't shoot for some time, keep the counter clamped at the max amount
 	counter_to_attack = clampf(counter_to_attack, 0, attack_speed_reset)
@@ -67,18 +73,26 @@ func buy_consumable(consumable: String):
 			if HPComponent.current_Shield < 3:
 				HPComponent.add_shield()
 				return HPComponent.current_Shield
-		"drones":
-			pass
+		"attack_drone":
+			if drones.size() < 5:
+				add_drone("attack_drone")
+				return drones.size()
 		_:
 			print("unknown consumable purchased")
 			return null
 
-func _on_health_component_hp_changed(old, new):
+func add_drone(drone_name: String):
+	var new_drone = drones_preloads[drone_name].instantiate()
+	drones.append(new_drone)
+	$DroneAnchor.add_child(new_drone)	
+
+func _on_health_component_hp_changed(_old, new):
 	if (new == 0):
 		queue_free() #ded
 		get_tree().paused = true
 
 func _on_health_component_shield_hit(new_shield_val):
-	attack_drone.run_away()
+	for drone in drones:
+		drone.run_away()
 	emit_signal("shield_hit", new_shield_val)
 	

@@ -166,11 +166,20 @@ func _on_enemy_fracture_chance_pressed():
 func consumable_purchase_confirmed(consumable: String, new_consumable_value: int):
 	var current_level = find_child(consumable + "Container").find_child("ProgressBar").value
 	points -= consumable_costs[consumable].cost_per_level[int(current_level)]
-	
 	find_child(consumable + "Container").find_child("ProgressBar").value = new_consumable_value
 
 	#Update points text
 	points_label.set_text("Points: " + str(points))
+
+func drone_purchase_confirmed(drone_type: String, new_drone_count: int):
+	var current_level = find_child("dronesContainer").find_child("ProgressBar").value
+	points -= consumable_costs[drone_type].cost_per_level[int(current_level)]
+	find_child("dronesContainer").find_child("ProgressBar").value = new_drone_count
+
+	#Update points text
+	points_label.set_text("Points: " + str(points))
+
+	#Update buttons text
 
 func _on_buy_shields_pressed():
 	var current_level = find_child("shieldsContainer").find_child("ProgressBar").value
@@ -180,7 +189,11 @@ func _on_buy_shields_pressed():
 		emit_signal("consumable_purchased", "shields")
 
 func _on_buy_attack_drone_pressed():
-	pass
+	var current_level = find_child("dronesContainer").find_child("ProgressBar").value
+	var price = consumable_costs["attack_drone"].cost_per_level.get(int(current_level))
+
+	if price != null && points >= price:
+		emit_signal("consumable_purchased", "attack_drone")
 
 func update_shield_val(new_shield_val: int):
 	find_child("shieldsContainer").find_child("ProgressBar").value = new_shield_val

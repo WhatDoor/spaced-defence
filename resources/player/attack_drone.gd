@@ -1,5 +1,6 @@
 extends Node2D
 
+var type: String = "attack_drone"
 var active: bool = true
 var escaping: bool = false
 var tween: Tween

@@ -24,10 +24,10 @@ func _ready():
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	#If not manually targetting, then need to regularly check if we are targetting the right one
 	if (target_mode == target_modes.NEAREST):
 		#calculate the closest enemy for the player
@@ -99,8 +99,12 @@ func _on_control_upgrade_purchased(upgrade_name):
 
 func _on_control_consumable_purchased(consumable):
 	var new_consumable_value = player.buy_consumable(consumable)
+
 	if new_consumable_value != null:
-		UI.consumable_purchase_confirmed(consumable, new_consumable_value)
+		if (consumable.contains("drone")):
+			UI.drone_purchase_confirmed(consumable, new_consumable_value)
+		else:
+			UI.consumable_purchase_confirmed(consumable, new_consumable_value)
 
 func _on_player_shield_hit(new_shield_val: int):
 	UI.update_shield_val(new_shield_val)

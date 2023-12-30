@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://b28ai6lky601j"]
+[gd_scene load_steps=7 format=3 uid="uid://b28ai6lky601j"]
 
 [ext_resource type="Texture2D" uid="uid://b74007ovk7s2l" path="res://resources/sprites/SpaceShooterAssetPack_Ships.png" id="1_i1vyn"]
 [ext_resource type="Script" path="res://resources/player/player.gd" id="1_o0u1v"]
 [ext_resource type="PackedScene" uid="uid://brnfjnf6dx7xe" path="res://resources/components/hurtboxComponent.tscn" id="4_ppxdq"]
-[ext_resource type="PackedScene" uid="uid://cph6in1isuj6j" path="res://resources/player/attack_drone.tscn" id="5_pl1ii"]
 [ext_resource type="PackedScene" uid="uid://4xiasq1xw1ii" path="res://resources/components/healthComponent.tscn" id="5_t414h"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1l8x6"]
@@ -50,8 +49,6 @@ max_shield = 1
 
 [node name="DroneAnchor" type="Node2D" parent="."]
 position = Vector2(13, 0)
-
-[node name="AttackDrone" parent="DroneAnchor" instance=ExtResource("5_pl1ii")]
 
 [connection signal="HP_changed" from="HealthComponent" to="." method="_on_health_component_hp_changed"]
 [connection signal="shield_hit" from="HealthComponent" to="." method="_on_health_component_shield_hit"]
