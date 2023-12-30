@@ -75,7 +75,8 @@ func _on_player_fire(bullet_direction: Vector2, starting_position: Vector2, bull
 	call_deferred("add_child", bullet_node)
 	
 func handle_enemy_died(enemy: CharacterBody2D):
-	UI.add_points(enemy.point_value)
+	var cash_multipler = player.calculate_cash_drone_multipler()
+	UI.add_points(enemy.point_value * cash_multipler)
 	
 	var fracture_chance = player.enemy_fracture_chance * enemy.fracture_chance
 	

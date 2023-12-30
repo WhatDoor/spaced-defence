@@ -100,3 +100,11 @@ func _on_health_component_shield_hit(new_shield_val):
 		drone.run_away()
 	emit_signal("shield_hit", new_shield_val)
 	
+func calculate_cash_drone_multipler():
+	var starting_val = 1
+
+	for drone in drones:
+		if (drone.active && drone.type == "cash_drone"):
+			starting_val += 1
+	
+	return starting_val
